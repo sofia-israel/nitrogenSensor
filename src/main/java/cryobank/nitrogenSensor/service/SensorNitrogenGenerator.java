@@ -64,7 +64,7 @@ public class SensorNitrogenGenerator {
 				log.trace("SensorNitrogen ALARM really sent data for sensorId {}", data.sensorID);
 			   streamBridge.send(bindingName, data);
 			}
-			
+
 			// our standard output
 			try {
 				log.trace("SensorNitrogen really sent data for sensorId {}", data.sensorID);
