@@ -27,6 +27,14 @@ public class SensorNitrogenGetDataImpl implements ISensorNitrogenGetData {
 		return getRandomSensorData(sensorID);
 	}
 	
+	@Override
+	public SensorNitrogenDto getSensorAlarmNitrogenData(int sensorID) {
+		log.trace("SensorNitrogen sent ALARM data for sensorId {}", sensorID);
+	    SensorNitrogenDto data = getRandomSensorData(sensorID);
+	    data.nitrogen_level_value = maxValue + 10;
+		return data;
+	}
+	
 	private SensorNitrogenDto getRandomSensorData(int sensorID) {
 		long timestamp = System.currentTimeMillis();
 		int value = getRandomNumber(minValue, maxValue);
