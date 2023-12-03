@@ -22,9 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class NitrogenSensorApplicationTests {
 
-	@Value("${app.myTest:100}") // в тесте у нас зашито 2, а в продакшене можно конфигурировать
-    int myTest;
-
 	@Autowired
 	InputDestination producer;
 	@Autowired
@@ -46,7 +43,7 @@ class NitrogenSensorApplicationTests {
 
 	@Test
 	void sendSensorDataTest() throws IOException {
-		SensorNitrogenDto testData = new SensorNitrogenDto(System.currentTimeMillis(), 100);
+		//SensorNitrogenDto testData = new SensorNitrogenDto(System.currentTimeMillis(), 100);
 		//producer.send(new GenericMessage<SensorNitrogenDto>(testData), consumerBindingName);
 
 		Message<byte[]> message = consumer.receive(100, producerBindingName ); // чтобы проверить что вернет

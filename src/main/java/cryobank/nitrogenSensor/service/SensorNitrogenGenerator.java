@@ -27,12 +27,15 @@ public class SensorNitrogenGenerator {
 	ISensorNitrogenGetData gen;// = new SensorNitrogenGetDataImpl();
 	
     @Autowired
-    StreamBridge bridge;
+    StreamBridge streamBridge;
     
 	@Value("${min_value:30}")
 	private int minValue;
 	@Value("${max_value:250}")
 	private int maxValue;
+	
+	@Value("${app.sensor.alarmproducer.binding.name:alarm_producer-out-0}")
+	String bindingName;
 	
 	@Bean
 	// типизируем Supplier-а тем что он будет отправлять в Кафку - String-ом, потому что JSON
@@ -42,10 +45,11 @@ public class SensorNitrogenGenerator {
 		{
 			SensorNitrogenDto data = gen.getSensorNitrogenData(sNumber++);
 			
+			// perhaps alarm output
 			if (data.nitrogen_level_value > maxValue || data.nitrogen_level_value < minValue)
 			{
 				log.trace("SensorNitrogen ALARM really sent data for sensorId {}", data.sensorID);
-			   //streamBridge.send(bindingName, avgProbe);
+			   streamBridge.send(bindingName, data);
 			}
 			
 			// our standard output
