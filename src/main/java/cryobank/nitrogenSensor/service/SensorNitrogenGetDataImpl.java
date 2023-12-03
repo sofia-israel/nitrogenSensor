@@ -17,9 +17,13 @@ public class SensorNitrogenGetDataImpl implements ISensorNitrogenGetData {
 	@Value("${max_value:250}")
 	private int maxValue;
 	
+	@Value("${app.myTest:100}") // в тесте у нас зашито 2, а в продакшене можно конфигурировать
+    int myTest;
+	
 	@Override
 	public SensorNitrogenDto getSensorNitrogenData(int sensorID) {
 		log.trace("SensorNitrogen sent data for sensorId {}", sensorID);
+	    System.out.println("myTest" + myTest);
 		return getRandomSensorData(sensorID);
 	}
 	
